@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Important Question ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      background: linear-gradient(135deg,
+        #6a8cff,
+        #ffd86b,
+        #ffb6c1,
+        #d4af37);
+      background-size: 400% 400%;
+      animation: magicBG 12s ease infinite;
+    }
+
+    @keyframes magicBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    h1 {
+      margin-top: 80px;
+      color: #fff;
+      font-size: 28px;
+      padding: 0 15px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    button {
+      padding: 14px 26px;
+      font-size: 18px;
+      margin: 12px;
+      cursor: pointer;
+      border: none;
+      border-radius: 12px;
+      position: relative;
+      z-index: 3;
+    }
+
+    #yes {
+      background: #28a745;
+      color: white;
+    }
+
+    #no {
+      background: #ff4d4d;
+      color: white;
+      position: absolute;
+    }
+
+    /* containers above falling items */
+    #question, #celebration {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* celebration screen */
+    #celebration {
+      display: none;
+      color: white;
+      padding: 20px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .quote {
+      font-size: 22px;
+      margin-top: 20px;
+      padding: 0 20px;
+    }
+
+    .teddy {
+      font-size: 60px;
+      margin-top: 15px;
+      animation: float 2s infinite alternate;
+    }
+
+    @keyframes float {
+      from { transform: translateY(0); }
+      to { transform: translateY(-15px); }
+    }
+
+    /* falling items */
+    .fall {
+      position: fixed;
+      top: -10px;
+      font-size: 22px;
+      animation: fall linear forwards;
+      z-index: 0;
+      pointer-events: none; /* 👈 IMPORTANT FIX */
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="question">
+  <h1>Will you be my Valentine? 💖</h1>
+  <button id="yes" onclick="yesClicked()">Yes 💕</button>
+  <button id="no" ontouchstart="moveButton()" onmouseover="moveButton()">No 😢</button>
+</div>
+
+<div id="celebration">
+  <div class="teddy">🧸❤️🧸</div>
+  <h1>Yayyy! You made my day ❤️</h1>
+  <p class="quote">
+    "Every love story is beautiful… but ours is my favorite." ✨
+  </p>
+</div>
+
+<script>
+function yesClicked() {
+  document.getElementById("question").style.display = "none";
+  document.getElementById("celebration").style.display = "block";
+  startMagicRain();
+}
+
+function moveButton() {
+  const btn = document.getElementById("no");
+  const x = Math.random() * (window.innerWidth - 100);
+  const y = Math.random() * (window.innerHeight - 50);
+  btn.style.left = x + "px";
+  btn.style.top = y + "px";
+}
+
+// 🌸 hearts + flowers rain
+function startMagicRain() {
+  const items = ["❤️","🌸","🌹","💖"];
+
+  setInterval(() => {
+    const el = document.createElement("div");
+    el.className = "fall";
+    el.innerHTML = items[Math.floor(Math.random() * items.length)];
+    el.style.left = Math.random() * 100 + "vw";
+    el.style.animationDuration = (Math.random() * 3 + 3) + "s";
+    document.body.appendChild(el);
+
+    setTimeout(() => el.remove(), 6000);
+  }, 250);
+}
+</script>
+
+</body>
+</html>
